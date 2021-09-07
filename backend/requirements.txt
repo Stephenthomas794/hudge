@@ -1,0 +1,14 @@
+certifi==2021.5.30
+charset-normalizer==2.0.4
+docutils==0.17.1
+fastapi==0.68.1
+flit==3.3.0
+flit_core==3.3.0
+idna==3.2
+pydantic==1.8.2
+python-dotenv==0.19.0
+requests==2.26.0
+starlette==0.14.2
+toml==0.10.2
+typing-extensions==3.10.0.2
+urllib3==1.26.6
