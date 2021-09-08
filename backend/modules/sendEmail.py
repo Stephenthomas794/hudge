@@ -12,7 +12,7 @@ class sendEmail():
         self.email = ''
         self.businessEmail = os.environ.get('EMAIL_ADDRESS')
         self.subject = 'Your password from Hudge'
-        self.body = 'PASSWORD HEREEEEE'
+        self.body = ''
 
         self.SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
     

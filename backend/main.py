@@ -37,7 +37,15 @@ async def sendMail(request: Email):
     #mail = sendEmail()
     #mail.send()
     return {"message": "Message Sent!"}
-    
+
+
+    # 1. Check DB if user exists  
+    # 2. If user does not exisit send Email
+    # 3. Add Email + Password to DataBase 
+    # REACT: Add alert if user does exisit
+    # 4. Sign In logic 
+    # 5. Check DB if email and password match 
+    # REACT: Design landing page
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
