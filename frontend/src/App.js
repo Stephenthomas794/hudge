@@ -1,12 +1,22 @@
 import './App.css'
 
-import { Button }  from 'react-bootstrap'
+import { Route, Switch } from 'react-router-dom';
+
+//COMPONENTS
+import Home from './Pages/Home';
+import Signup from './Pages/SignUp';
+import Signin from './Pages/SignIn';
 
 function App() {
   return (
     <div className="App">
-      <h1>Hudge</h1>
-      <Button>Hi</Button>
+      
+      <Switch> 
+            <Route path="/" component={(routeProps)=> <Home/>} exact/>
+            <Route path="/signup" component={(routeProps)=> <Signup/> } />
+            <Route path="/signin" component={(routeProps)=> <Signin/> } />
+            <Route component= { Error } /> 
+        </Switch>
     </div>
   );
 }

@@ -1,0 +1,7 @@
+__pycache__
+venv/
+.DS_store
+node_modules/
+package-lock.json
+credentials.json
+token_gmail_v1.pickle
