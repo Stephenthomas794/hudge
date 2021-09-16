@@ -16,7 +16,7 @@ class sendEmail():
 
         self.SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
     
-    def send(self):
+    def send(self, email):
         CLIENT_SECRET_FILE = 'credentials.json'
         API_NAME = 'gmail'
         API_VERSION = 'v1'
@@ -27,7 +27,7 @@ class sendEmail():
 
         emailMsg = self.generator() 
         mimeMessage = MIMEMultipart()
-        mimeMessage['to'] = self.businessEmail
+        mimeMessage['to'] = email
         mimeMessage['subject'] = self.subject
         mimeMessage.attach(MIMEText(emailMsg, 'plain'))
         raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()

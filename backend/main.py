@@ -35,7 +35,7 @@ class Email(BaseModel):
 async def sendMail(request: Email):
     print(request.email)
     #mail = sendEmail()
-    #mail.send()
+    #mail.send(request.email)
     return {"message": "Message Sent!"}
 
 
