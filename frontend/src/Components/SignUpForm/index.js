@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Container, Form, Button, ThemeProvider } from 'react-bootstrap';
+import { Container, Form, Button } from 'react-bootstrap';
 import Break from '../Break';
 
 class signupform extends Component {

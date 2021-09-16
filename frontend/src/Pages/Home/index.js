@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import Nav from '../../Components/Nav';
 import Intro from '../../Components/Intro';
 
-import Break from '../../Components/Break';
-
 class Home extends Component {
 
     render(){

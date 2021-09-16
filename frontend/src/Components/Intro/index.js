@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 import Break from '../Break';
 
@@ -21,20 +23,21 @@ render(){
       <p>A platform that connects you with your fellow coworkers across your organization with 5 minute video chats</p>
             <p>With our optional filters you can narrow down your network of intrests as well</p>
       </Container>
-      <div class="container">
-        <div class="row">
-            <div class="col-sm">
+      <Container>
+        <Row>
+            <Col>
             <Button variant="primary" href="/signup">
          Sign Up!
         </Button>
-            </div>
-            <div class="col-sm">
+        </Col>
+            <Break/>
+            <Col>
             <Button variant="primary" href="/signin">
          Sign In!
         </Button>
-            </div>
-        </div>
-       </div>
+        </Col>
+        </Row>
+       </Container>
             <Container>
 
         <Break/>

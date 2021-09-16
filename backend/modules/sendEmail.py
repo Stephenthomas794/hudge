@@ -34,6 +34,7 @@ class sendEmail():
 
         output = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
         print(output)
+        return emailMsg
 
     def generator(self):
         self.body = str(random.randint(0,999999999999))

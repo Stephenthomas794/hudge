@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import Nav from '../../Components/Nav';
 import Signinform from '../../Components/SignInForm';
 
-import Break from '../../Components/Break';
-
 class SignIn extends Component {
 
     render(){
