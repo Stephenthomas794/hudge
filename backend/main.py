@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from modules.sendEmail import sendEmail
-from aws.database.dao import dao
+from aws.database import dynamodao
 from pydantic import BaseModel
 
 import uvicorn
@@ -34,32 +34,39 @@ class Email(BaseModel):
 
 @app.post("/sendEmail")
 async def sendMail(request: Email):
-    print(request.email)
+    dynamo = dynamodao.dynamodao()
     mail = sendEmail()
     #mail.send(request.email)
-    password = mail.send(request.email)
-    #checkUser(email)
-    return {"message": "Message Sent!"}
-
-# 1. Check DB if user exists 
-# 2. If user does not exisit send Email 
-def checkUser(email):
-    dynamo = dao.dao()
-    response = dao.getData(email)
-    print(response)
-    if response.length > 0:
-        return True
+    if checkUser(request.email, dynamo) == True:
+        return {"message": 0}
+    elif checkUser(request.email, dynamo) == False:
+        password = mail.send(request.email)
+        dynamo.addUser(request.email, password)
+        return {"message": 1}
     else:
+        return {"message": 0}
+
+def checkUser(email, dynamo):
+    response = dynamo.getData(email)
+    print(response)
+    if not response:
         return False
+    else:
+        return True
 
-# 3. Add Email + Password to DataBase 
-def addUserToDB():
-    pass
+class User(BaseModel):
+    email: str
+    password: str
 
+@app.post("/login")
+async def userLogin(user: User):
+    dynamo = dynamodao.dynamodao()
+    if dynamo.verifyUser(user.email, user.password) == True:
+        return {"message": True}
+    else:
+        return {"message": False}
 
-    # REACT: Add alert if user does exisit
-    # 4. Sign In logic 
-    # 5. Check DB if email and password match 
+    # 4. Sign In Page to next page
     # REACT: Design landing page
 
 if __name__ == "__main__":

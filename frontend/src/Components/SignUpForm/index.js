@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button} from 'react-bootstrap';
+
+import Alert from '../Alert'
 import Break from '../Break';
 
 class signupform extends Component {
     constructor(){
         super();
         this.state = {
-            email: ''
+            email: '',
+            existingUser: null
         }
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -33,7 +36,16 @@ class signupform extends Component {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
+            if (data['message'] === 0){
+                this.setState(state => ({
+                    existingUser: 1
+                }));
+            } else {
+                this.setState(state => ({
+                    existingUser: null
+                }));
+            }
+            console.log('Success:', data['message']);
         })
     }
 
@@ -57,7 +69,9 @@ render(){
       Submit
     </Button>
         </Form>
-
+        </Container>
+        <Container>
+            { this.state.existingUser ? <Alert/> : null }
         </Container>
     </div>
 )}};

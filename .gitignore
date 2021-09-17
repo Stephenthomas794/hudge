@@ -5,5 +5,5 @@ node_modules/
 package-lock.json
 credentials.json
 token_gmail_v1.pickle
-.eslintcache
+.cache/
 yarn.lock
