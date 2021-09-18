@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import { Container, Form, Button } from 'react-bootstrap';
 import Break from '../Break';
@@ -40,6 +41,12 @@ class signinform extends Component {
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
+            if (data['message'] === true){
+                this.props.history.push('/userinfo')
+            } else {
+                window.alert("You do not have an account OR your password is incorrect");
+            }
+            
         })
     }
 
@@ -53,7 +60,7 @@ render(){
         </Container>
         <Break/>
         <Container>
-        <Form onSubmit={this.handleFormSubmit}>
+        <Form onSubmit={ this.handleFormSubmit }>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label><h1>Enter your email</h1></Form.Label>
                 <Form.Control type="email" value = { this.state.email} onChange={ this.handleEmailChange } placeholder="name@example.com" />
@@ -71,4 +78,4 @@ render(){
     </div>
 )}};
 
-export default signinform;
+export default withRouter (signinform);

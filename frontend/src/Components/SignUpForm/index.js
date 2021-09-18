@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import './index.css'
 import { Container, Form, Button} from 'react-bootstrap';
 
 import Alert from '../Alert'
@@ -55,8 +55,8 @@ render(){
     <div className="signupform">
         <Container>
         <h1>Sign Up!</h1>
-      <p>An email will be sent to your account with a password.</p>
-      <p>Please keep this password safe because you will not be able to change it later.</p>
+      <p1>An email will be sent to your account with a password.</p1>
+      <p1>Please keep this password safe because you will not be able to change it later.</p1>
         </Container>
         <Break/>
         <Container>

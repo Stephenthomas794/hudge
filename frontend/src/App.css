@@ -9,4 +9,13 @@
   padding: 0;
   font-family: 'Encode Sans Expanded'
   sans-serif;
+  background-color: black;
+}
+
+p{
+  color: white;
+}
+
+h1{
+  color: white;
 }
