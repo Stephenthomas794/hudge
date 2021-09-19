@@ -75,7 +75,7 @@ async def userData(userData: UserData):
     print('hi')
     dynamo = dynamodao.dynamodao()
     dynamo.addUserData(userData.email, userData.name)
-    return True
+    return {"message": False}
 
     # 5. Send Userinfo to database
     # 6. userinfo to next page

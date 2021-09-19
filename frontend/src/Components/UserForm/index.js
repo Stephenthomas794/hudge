@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 import Break from '../Break';
 
 class userinfoform extends Component {
-    constructor(){
+    constructor(props){
         super();
         this.state = {
             name: '',
@@ -21,7 +21,7 @@ class userinfoform extends Component {
 
     componentDidMount(){
         this.setState({
-            email: this.props.email
+            email: this.props.email['email']
         })
     }
     
@@ -31,8 +31,9 @@ class userinfoform extends Component {
 
     handleFormSubmit(event){
         event.preventDefault();
-        
+        console.log(this.state.email)
         const data = {email: this.state.email, name: this.state.name}
+        console.log(data)
         fetch('http://0.0.0.0:8000/userDataStore', {
             crossDomain: true,
             mode: 'cors',
