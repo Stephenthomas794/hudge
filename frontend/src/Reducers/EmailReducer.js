@@ -1,13 +1,13 @@
-import { FETCH_EMAIL, NEW_EMAIL } from "../Actions/types";
-
-const initialState = {
-    items: [],
-    item: {}
-}
-
-export default function(state=initialState, action){
+const emailReducer = (state = 'null', action) => {
     switch(action.type){
+        case 'EMAILACTION':
+            return {
+                ...state,
+                email: action.payload
+            };
         default:
-            return state;
+            return null
     }
-}
+};
+
+export default emailReducer;

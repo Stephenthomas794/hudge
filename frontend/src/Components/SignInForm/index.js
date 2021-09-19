@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-
 import { Container, Form, Button } from 'react-bootstrap';
 import Break from '../Break';
+import AlertForSignIn from '../AlertForSignIn';
+import { withRouter } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { emailAction } from '../../Actions';
+
 
 class signinform extends Component {
-    constructor(){
+    constructor(props){
         super();
         this.state = {
             email: '',
-            password:''
+            password:'',
+            loginFail: null
         }
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -26,7 +31,6 @@ class signinform extends Component {
 
     handleFormSubmit(event){
         event.preventDefault();
-        
         const data = {email: this.state.email, password: this.state.password}
         fetch('http://0.0.0.0:8000/login', {
             crossDomain: true,
@@ -42,13 +46,20 @@ class signinform extends Component {
         .then(data => {
             console.log('Success:', data);
             if (data['message'] === true){
+                this.props.emailAction(this.state.email)
                 this.props.history.push('/userinfo')
+                this.setState(state => ({
+                    loginFail: false
+                }));
             } else {
-                window.alert("You do not have an account OR your password is incorrect");
+                    this.setState(state => ({
+                        loginFail: true
+                    }));
+                console.log('Success:', data['message']);
             }
             
         })
-    }
+    } 
 
 render(){
 
@@ -73,9 +84,23 @@ render(){
       Submit
     </Button>
         </Form>
-
+        </Container>
+        <Container>
+            { this.state.loginFail ? <AlertForSignIn/> : false }
         </Container>
     </div>
 )}};
 
-export default withRouter (signinform);
+const mapStateToProps = (state) => {
+    return {
+        email: state.email
+    }
+}
+
+const mapDispatchToProps = () => {
+    return {
+        emailAction
+    }
+}
+
+export default withRouter (connect(mapStateToProps, mapDispatchToProps())(signinform));

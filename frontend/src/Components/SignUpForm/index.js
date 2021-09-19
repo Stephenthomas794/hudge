@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './index.css'
 import { Container, Form, Button} from 'react-bootstrap';
 
-import Alert from '../Alert'
+import AlertForSignUp from '../AlertForSignUp'
 import Break from '../Break';
 
 class signupform extends Component {
@@ -71,7 +71,7 @@ render(){
         </Form>
         </Container>
         <Container>
-            { this.state.existingUser ? <Alert/> : null }
+            { this.state.existingUser ? <AlertForSignUp/> : null }
         </Container>
     </div>
 )}};

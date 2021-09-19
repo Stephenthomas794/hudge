@@ -8,12 +8,19 @@ class userinfoform extends Component {
     constructor(){
         super();
         this.state = {
-            Name: '',
+            name: '',
+            email: ''
         }
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this)
     }
 
+    componentDidMount(){
+        this.setState({
+            email: this.props.email
+        })
+    }
+    
     handleNameChange(event){
         this.setState({ name: event.target.value })
     }

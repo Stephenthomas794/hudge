@@ -3,19 +3,19 @@ import './App.css'
 import { Route, Switch } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
+
+
 //COMPONENTS
 import Home from './Pages/Home';
 import Signup from './Pages/SignUp';
 import Signin from './Pages/SignIn';
 import Userinfo from './Pages/UserInfo';
-import { createStore, applyMiddleware } from 'redux';
+import store from './Store/index'
 
 
 
 function App() {
 
-  const store = createStore(() => [], {}, applyMiddleware());
-  
   return (
     <Provider store={store}>
     <div className="App">
