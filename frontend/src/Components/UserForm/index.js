@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 import { Container, Form, Button} from 'react-bootstrap';
 
+import { connect } from 'react-redux';
+import { emailAction } from '../../Actions';
+import { withRouter } from 'react-router-dom';
+
 import Break from '../Break';
 
 class userinfoform extends Component {
@@ -28,8 +32,8 @@ class userinfoform extends Component {
     handleFormSubmit(event){
         event.preventDefault();
         
-        const data = {name: this.state.name}
-        fetch('http://0.0.0.0:8000/', {
+        const data = {email: this.state.email, name: this.state.name}
+        fetch('http://0.0.0.0:8000/userDataStore', {
             crossDomain: true,
             mode: 'cors',
             method: 'POST',
@@ -69,4 +73,16 @@ render(){
     </div>
 )}};
 
-export default userinfoform;
+const mapStateToProps = (state) => {
+    return {
+        email: state.email
+    }
+}
+
+const mapDispatchToProps = () => {
+    return {
+        emailAction
+    }
+}
+
+export default withRouter (connect(mapStateToProps, mapDispatchToProps())(userinfoform));

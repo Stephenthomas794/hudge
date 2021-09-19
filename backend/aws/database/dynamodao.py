@@ -43,3 +43,17 @@ class dynamodao:
             return True
         else:
             return False
+
+    def addUserData(self, email, name):
+        self.email = email
+        self.name = name
+        response = self.table.update_item(
+            Key={
+                'email': self.email.lower()
+                },
+            AttributeUpdates={
+                name: self.name
+            },
+        )
+        print(response)
+        return response

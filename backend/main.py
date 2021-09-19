@@ -66,7 +66,17 @@ async def userLogin(user: User):
     else:
         return {"message": False}
 
-    # 5. Set up redux for email
+class UserData(BaseModel):
+    email: str
+    name: str
+
+@app.post("/userDataStore")
+async def userData(userData: UserData):
+    print('hi')
+    dynamo = dynamodao.dynamodao()
+    dynamo.addUserData(userData.email, userData.name)
+    return True
+
     # 5. Send Userinfo to database
     # 6. userinfo to next page
     # REACT: Design landing page
