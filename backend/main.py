@@ -66,7 +66,9 @@ async def userLogin(user: User):
     else:
         return {"message": False}
 
-    # 4. Sign In Page to next page
+    # 5. Set up redux for email
+    # 5. Send Userinfo to database
+    # 6. userinfo to next page
     # REACT: Design landing page
 
 if __name__ == "__main__":
