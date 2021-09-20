@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import { Container, Form, Button} from 'react-bootstrap';
 
 import { connect } from 'react-redux';
-import { emailAction } from '../../Actions';
+import { emailAction } from '../../Actions/emailAction';
+import { nameAction } from '../../Actions/nameAction';
+import { combinedAction } from '../../Actions/combinedAction';
 import { withRouter } from 'react-router-dom';
 
 import Break from '../Break';
@@ -46,7 +48,13 @@ class userinfoform extends Component {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
+            if (data['message'] === true){
+                this.props.nameAction(this.state.name)
+                console.log('Success:', data);
+                this.props.history.push('/mainpage')
+            } else{
+                console.log("FAILURE")
+            }
         })
     }
 
@@ -76,13 +84,16 @@ render(){
 
 const mapStateToProps = (state) => {
     return {
-        email: state.email
+        email: state.email,
+        name: state.name
     }
 }
 
 const mapDispatchToProps = () => {
     return {
-        emailAction
+        emailAction,
+        nameAction, 
+        combinedAction
     }
 }
 

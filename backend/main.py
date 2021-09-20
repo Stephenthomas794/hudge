@@ -78,8 +78,10 @@ async def userData(userData: UserData):
     dynamo.addUserData(userData.email, userData.name)
     return {"message": True}
 
-    # 5. Send Userinfo to database
     # 6. userinfo to next page
+    # 7. Redux value into store
+    # 8. Design Video Conference Page
+    
     # REACT: Design landing page
 
 if __name__ == "__main__":

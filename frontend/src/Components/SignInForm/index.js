@@ -5,7 +5,7 @@ import AlertForSignIn from '../AlertForSignIn';
 import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { emailAction } from '../../Actions';
+import { emailAction } from '../../Actions/emailAction';
 
 
 class signinform extends Component {
