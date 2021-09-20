@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 //COMPONENTS
 import Nav from '../../Components/Nav';
+import VideoConference from '../../Components/VideoConference';
 
 class MainPage extends Component {
 
@@ -10,6 +11,7 @@ class MainPage extends Component {
         return (
         <div className="MainPage">
             <Nav/>
+            <VideoConference />
         </div>
     )}};
     
