@@ -72,10 +72,11 @@ class UserData(BaseModel):
 
 @app.post("/userDataStore")
 async def userData(userData: UserData):
-    print('hi')
+    print(userData.email)
+    print(userData.name)
     dynamo = dynamodao.dynamodao()
     dynamo.addUserData(userData.email, userData.name)
-    return {"message": False}
+    return {"message": True}
 
     # 5. Send Userinfo to database
     # 6. userinfo to next page

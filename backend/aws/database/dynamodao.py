@@ -51,9 +51,11 @@ class dynamodao:
             Key={
                 'email': self.email.lower()
                 },
-            AttributeUpdates={
-                name: self.name
+            UpdateExpression="set person_name = :g",
+            ExpressionAttributeValues={
+                ':g': self.name
             },
+            ReturnValues="UPDATED_NEW"
         )
         print(response)
         return response
