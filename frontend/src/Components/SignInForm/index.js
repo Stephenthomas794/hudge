@@ -10,7 +10,7 @@ import { emailAction } from '../../Actions/emailAction';
 
 class signinform extends Component {
     constructor(props){
-        super();
+        super(props);
         this.state = {
             email: '',
             password:'',

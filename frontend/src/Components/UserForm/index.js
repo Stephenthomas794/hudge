@@ -12,7 +12,7 @@ import Break from '../Break';
 
 class userinfoform extends Component {
     constructor(props){
-        super();
+        super(props);
         this.state = {
             name: '',
             email: ''
