@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Button  } from 'react-bootstrap';
-import Store from '../../Store'
+import { Container, Button, Row, Col } from 'react-bootstrap';
+import Break from '../Break';
 
+import Store from '../../Store'
 
 class VideoConferenceOne extends Component {
     constructor(props){
@@ -39,6 +40,7 @@ render(){
         <Container>
             <h1>{Store.getState().name['name']}</h1>
         </Container>
+        <Break/>
         <Container>
         {this.state.localStream && (
           <video autoplay="true" muted="muted" ref={(video) => {
@@ -48,14 +50,18 @@ render(){
             }}
           />
         )}
-        <div className="startStopWebCam">
+        </Container>
+        <Container>
+
+        <div className="d-grid gap-2">
           <Button variant="light" className="WebCamButton" onClick={this.startWebCam.bind(this)}>
             Start
           </Button>
+
           <Button variant="light" className="WebCamButton" onClick={this.stopWebCam.bind(this)}>
             Stop
           </Button>
-        </div>
+            </div>
         </Container>
     </div>
 )}};
