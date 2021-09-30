@@ -40,28 +40,21 @@ render(){
             <h1>{Store.getState().name['name']}</h1>
         </Container>
         <Container>
-             {/* <h1>Hello GetUserMedia</h1> */}
         {this.state.localStream && (
-          <video
-            autoPlay
-            ref={(video) => {
+          <video autoplay="true" muted="muted" ref={(video) => {
               if (video) {
                 video.srcObject = this.state.localStream;
               }
             }}
-            // src={this.state.localStream}
           />
         )}
         <div className="startStopWebCam">
-          <button
-            className="WebCamButton"
-            onClick={this.startWebCam.bind(this)}
-          >
+          <Button variant="light" className="WebCamButton" onClick={this.startWebCam.bind(this)}>
             Start
-          </button>
-          <button className="WebCamButton" onClick={this.stopWebCam.bind(this)}>
+          </Button>
+          <Button variant="light" className="WebCamButton" onClick={this.stopWebCam.bind(this)}>
             Stop
-          </button>
+          </Button>
         </div>
         </Container>
     </div>
