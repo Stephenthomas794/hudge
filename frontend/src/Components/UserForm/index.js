@@ -5,7 +5,6 @@ import { Container, Form, Button} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { emailAction } from '../../Actions/emailAction';
 import { nameAction } from '../../Actions/nameAction';
-import { combinedAction } from '../../Actions/combinedAction';
 import { withRouter } from 'react-router-dom';
 
 import Break from '../Break';
@@ -90,8 +89,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = () => {
     return {
         emailAction,
-        nameAction, 
-        combinedAction
+        nameAction
     }
 }
 

@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 import uvicorn
 
+
 app = FastAPI()
 
 origins = [
@@ -78,11 +79,13 @@ async def userData(userData: UserData):
     dynamo.addUserData(userData.email, userData.name)
     return {"message": True}
 
-    # 6. userinfo to next page
-    # 7. Redux value into store
-    # 8. Design Video Conference Page
-    
-    # REACT: Design landing page
+@app.post("/")
+def jack():
+    pass
+    # 8. REACT: Design Video Conference Page
+    # 9. PYTHON: Set up sockets for python
+    # 10. REACT: Set up sockets for react
+    # FIX: redux state management
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
