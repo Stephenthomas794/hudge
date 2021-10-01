@@ -16,13 +16,13 @@ class MainPage extends Component {
             <Nav/>
             <Container>
                 <Row>
-                    <Col xs={4}>
+                    <Col md="auto">
                         <VideoConferenceOne />
                     </Col>
-                    <Col xs={5}>
+                    <Col md="auto">
                         <VideoConferenceTwo />
                     </Col>
-                    <Col xs={3}>
+                    <Col md="auto">
                         <Chat />
                     </Col>
                 </Row>

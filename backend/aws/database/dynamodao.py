@@ -10,6 +10,7 @@ class dynamodao:
         self.location = ''
         self.department = ''
         self.convoTopics = []
+        self.isOnline = False
 
         self.table = boto3.resource('dynamodb').Table('users')
 
@@ -54,6 +55,22 @@ class dynamodao:
             UpdateExpression="set person_name = :g",
             ExpressionAttributeValues={
                 ':g': self.name
+            },
+            ReturnValues="UPDATED_NEW"
+        )
+        print(response)
+        return response
+    
+    def addOnlineStatus(self, email, isOnline):
+        self.isOnline = isOnline
+        self.email = email
+        response = self.table.update_item(
+            Key={
+                'email': self.email.lower()
+            },
+            UpdateExpression="set person_online = :g",
+            ExpressionAttributeValues={
+                ':g': self.isOnline
             },
             ReturnValues="UPDATED_NEW"
         )

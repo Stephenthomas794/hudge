@@ -2,9 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from modules.sendEmail import sendEmail
-from aws.database import dynamodao
+from aws.database.dynamodao import dynamodao
+
 from pydantic import BaseModel
 
+import socket 
 import uvicorn
 
 
@@ -35,7 +37,7 @@ class Email(BaseModel):
 
 @app.post("/sendEmail")
 async def sendMail(request: Email):
-    dynamo = dynamodao.dynamodao()
+    dynamo = dynamodao()
     mail = sendEmail()
     #mail.send(request.email)
     if checkUser(request.email, dynamo) == True:
@@ -61,7 +63,7 @@ class User(BaseModel):
 
 @app.post("/login")
 async def userLogin(user: User):
-    dynamo = dynamodao.dynamodao()
+    dynamo = dynamodao()
     if dynamo.verifyUser(user.email, user.password) == True:
         return {"message": True}
     else:
@@ -75,14 +77,27 @@ class UserData(BaseModel):
 async def userData(userData: UserData):
     print(userData.email)
     print(userData.name)
-    dynamo = dynamodao.dynamodao()
+    dynamo = dynamodao()
     dynamo.addUserData(userData.email, userData.name)
     return {"message": True}
 
-@app.post("/")
-def jack():
+class OnlineData(BaseModel):
+    email: str
+    isOnline: bool
+
+@app.post("/isOnline")
+async def userOnline(OnlineData: OnlineData):
+    print(OnlineData.isOnline)
+    print(OnlineData.email)
+    dynamo = dynamodao()
+    dynamo.addOnlineStatus(OnlineData.email, OnlineData.isOnline)
+    return {"message": True}
+
+#Find someone who is online that is not myself with the email ending as me
+@app.post("/findAnotherUser")
+async def findUser(email: Email):
     pass
-    # 8. REACT: Design Video Conference Page
+    
     # 9. PYTHON: Set up sockets for python
     # 10. REACT: Set up sockets for react
     # FIX: redux state management
