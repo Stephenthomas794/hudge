@@ -6,11 +6,12 @@ from aws.database.dynamodao import dynamodao
 
 from pydantic import BaseModel
 
-import socket 
+import socketio
 import uvicorn
 
 
 app = FastAPI()
+sio = socketio.Client()
 
 origins = [
     "http://localhost:3000",
@@ -27,7 +28,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+@sio.event
+def connect():
+    print('connection established')
+    
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
