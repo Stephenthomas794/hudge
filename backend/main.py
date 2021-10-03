@@ -1,57 +1,50 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-
 from modules.sendEmail import sendEmail
 from aws.database.dynamodao import dynamodao
 
-from pydantic import BaseModel
 
-import socketio
-import uvicorn
+from flask import Flask, request, render_template, redirect, jsonify, json
+
+from flask_socketio import SocketIO
+from flask_cors import CORS
 
 
-app = FastAPI()
-sio = socketio.Client()
+app = Flask(__name__)
+CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="http://localhost:3000")
 
-origins = [
-    "http://localhost:3000",
-    "https://localhost:3000/signup",
-    "http://localhost",
-    "http://localhost:3000",
-]
+# origins = [
+#    "http://localhost:3000",
+#    "https://localhost:3000/signup",
+#    "http://localhost",
+#    "http://localhost:3000",
+# ]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# app.add_middleware(
+#    CORSMiddleware,
+#    allow_origins=origins,
+#    allow_credentials=True,
+#    allow_methods=["*"],
+#    allow_headers=["*"],
+# )
 
-@sio.event
-def connect():
-    print('connection established')
-    
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
 
-class Email(BaseModel):
-    email: str
-
-@app.post("/sendEmail")
-async def sendMail(request: Email):
+@app.route("/sendEmail", methods=['GET', 'POST'])
+def sendMail():
+    request_data = json.loads(request.data)
+    print(request_data)
+    email = request_data['email']
     dynamo = dynamodao()
     mail = sendEmail()
-    #mail.send(request.email)
-    if checkUser(request.email, dynamo) == True:
+    # mail.send(email)
+    if checkUser(email, dynamo) == True:
         return {"message": 0}
-    elif checkUser(request.email, dynamo) == False:
-        password = mail.send(request.email)
-        dynamo.addUser(request.email, password)
+    elif checkUser(email, dynamo) == False:
+        password = mail.send(email)
+        dynamo.addUser(email, password)
         return {"message": 1}
     else:
         return {"message": 0}
+
 
 def checkUser(email, dynamo):
     response = dynamo.getData(email)
@@ -61,50 +54,49 @@ def checkUser(email, dynamo):
     else:
         return True
 
-class User(BaseModel):
-    email: str
-    password: str
 
-@app.post("/login")
-async def userLogin(user: User):
+@app.route("/login", methods=['GET', 'POST'])
+def userLogin():
+    request_data = json.loads(request.data)
+    email = request_data['email']
+    password = request_data['password']
     dynamo = dynamodao()
-    if dynamo.verifyUser(user.email, user.password) == True:
+    if dynamo.verifyUser(email, password) == True:
         return {"message": True}
     else:
         return {"message": False}
 
-class UserData(BaseModel):
-    email: str
-    name: str
 
-@app.post("/userDataStore")
-async def userData(userData: UserData):
-    print(userData.email)
-    print(userData.name)
+@app.route("/userDataStore", methods=['GET', 'POST'])
+def userData():
+    request_data = json.loads(request.data)
+    email = request_data['email']
+    name = request_data['name']
     dynamo = dynamodao()
-    dynamo.addUserData(userData.email, userData.name)
+    dynamo.addUserData(email, name)
     return {"message": True}
 
-class OnlineData(BaseModel):
-    email: str
-    isOnline: bool
 
-@app.post("/isOnline")
-async def userOnline(OnlineData: OnlineData):
-    print(OnlineData.isOnline)
-    print(OnlineData.email)
+@app.route("/isOnline", methods=['GET', 'POST'])
+def userOnline():
+    request_data = json.loads(request.data)
+    email = request_data['email']
+    isOnline = request_data['isOnline']
     dynamo = dynamodao()
-    dynamo.addOnlineStatus(OnlineData.email, OnlineData.isOnline)
+    dynamo.addOnlineStatus(email, isOnline)
     return {"message": True}
 
-#Find someone who is online that is not myself with the email ending as me
-@app.post("/findAnotherUser")
-async def findUser(email: Email):
+# Find someone who is online that is not myself with the email ending as me
+
+
+@app.route("/findAnotherUser", methods=['GET', 'POST'])
+def findUser(email):
     pass
-    
+
     # 9. PYTHON: Set up sockets for python
     # 10. REACT: Set up sockets for react
     # FIX: redux state management
 
+
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    socketio.run(app, host="0.0.0.0", port=8000, debug=True)

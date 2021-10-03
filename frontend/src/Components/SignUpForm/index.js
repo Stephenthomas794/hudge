@@ -24,7 +24,7 @@ class signupform extends Component {
         event.preventDefault();
         
         const data = {email: this.state.email}
-        fetch('http://0.0.0.0:8000/sendEmail', {
+        fetch('http://10.0.0.197:8000/sendEmail', {
             crossDomain: true,
             mode: 'cors',
             method: 'POST',

@@ -7,7 +7,11 @@ import Store from '../../Store';
 import Peer from "simple-peer"
 import io from "socket.io-client"
 
-const socket = io.connect('http://0.0.0.0:8000')
+const socket = io.connect("http://10.0.0.197:8000");
+socket.on("connect", () => {
+  console.log(socket.id);
+});
+
 class VideoConferenceOne extends Component {
     constructor(props){
         super(props);
@@ -45,7 +49,7 @@ class VideoConferenceOne extends Component {
           console.log(email.id)
         })
       };
-    
+
       stopWebCam (){
         this.state.localStream.getTracks().forEach((track) => {
           track.stop();
@@ -79,9 +83,8 @@ class VideoConferenceOne extends Component {
           console.log('Success:', data);    
       })
       }
+
 render(){
-
-
     return (
     <div className="videoConferenceOne">
         <Container>

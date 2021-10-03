@@ -13,7 +13,8 @@ import React from 'react';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { Provider } from 'react-redux';
 import Store  from './Store';
-import { persistedStore } from './Store/PersistedStore'
+import { persistedStore } from './Store/PersistedStore';
+
 function App() {
     return (
     <div className="App">
