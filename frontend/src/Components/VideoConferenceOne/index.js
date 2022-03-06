@@ -25,6 +25,7 @@ class VideoConferenceOne extends Component {
         this.startWebCam = this.startWebCam.bind(this);
         this.stopWebCam = this.stopWebCam.bind(this);
         this.setIsOnline = this.setIsOnline.bind(this);
+        this.findpartner = this.findpartner.bind(this);
     }
 
     componentDidMount() {}
@@ -82,6 +83,31 @@ class VideoConferenceOne extends Component {
       .then(data => {
           console.log('Success:', data);    
       })
+      const partnerEmail = this.findpartner()
+
+      }
+
+      findpartner() {
+        const data = {email: this.state.email}
+        fetch('http://0.0.0.0:8000/findAnotherUser', {
+          crossDomain: true,
+          mode: 'cors',
+          method: 'POST',
+          headers:{
+              'Content-type': 'application/json',
+              'Accept': 'application/json'
+          },
+          body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log('Success:', data);    
+      })
+      return (data)
+      }
+
+      main(){
+        
       }
 
 render(){
@@ -93,7 +119,7 @@ render(){
         <Break/>
         <Container>
         {this.state.localStream && (
-          <video autoplay="true" muted="muted" ref={(video) => {
+          <video autoPlay="{true}" muted="muted" ref={(video) => {
               if (video) {
                 video.srcObject = this.state.localStream;
               }

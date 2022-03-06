@@ -1,6 +1,7 @@
 import boto3
 from boto3.dynamodb.conditions import Key
 
+
 class dynamodao:
     def __init__(self):
         self.data = ''
@@ -17,13 +18,13 @@ class dynamodao:
     def getData(self, email):
         self.email = email
         response = self.table.query(
-            IndexName = 'email',
-            KeyConditionExpression = Key('email').eq(self.email)
+            IndexName='email',
+            KeyConditionExpression=Key('email').eq(self.email)
         )
         self.data = response['Items']
         print(self.data)
         return self.data
-        
+
     def addUser(self, email, password):
         self.email = email
         self.password = password
@@ -51,7 +52,7 @@ class dynamodao:
         response = self.table.update_item(
             Key={
                 'email': self.email.lower()
-                },
+            },
             UpdateExpression="set person_name = :g",
             ExpressionAttributeValues={
                 ':g': self.name
@@ -60,7 +61,7 @@ class dynamodao:
         )
         print(response)
         return response
-    
+
     def addOnlineStatus(self, email, isOnline):
         self.isOnline = isOnline
         self.email = email
@@ -76,3 +77,21 @@ class dynamodao:
         )
         print(response)
         return response
+
+    def findPartner(self, email):
+        response = self.table.query(
+            IndexName='person_online-index',
+            KeyConditionExpression=Key('person_online').eq('true')
+        )
+        data = response['Items']
+        num = data['email'].find('@')
+        extention = email[num:]
+        partnerEmail = ''
+        for i in data:
+            if data['email'][num] == '@' and data['email'][num:] == extention:
+                partnerEmail = data['email']
+        if partnerEmail == '':
+            return False
+        else:
+            return partnerEmail
+        return False

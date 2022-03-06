@@ -33,7 +33,7 @@ class userinfoform extends Component {
     handleFormSubmit(event){
         event.preventDefault();
         const data = {email: this.state.email, name: this.state.name}
-        fetch('http://10.0.0.197:8000/userDataStore', {
+        fetch('http://0.0.0.0:8000/userDataStore', {
             crossDomain: true,
             mode: 'cors',
             method: 'POST',

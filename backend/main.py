@@ -12,21 +12,6 @@ app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="http://localhost:3000")
 
-# origins = [
-#    "http://localhost:3000",
-#    "https://localhost:3000/signup",
-#    "http://localhost",
-#    "http://localhost:3000",
-# ]
-
-# app.add_middleware(
-#    CORSMiddleware,
-#    allow_origins=origins,
-#    allow_credentials=True,
-#    allow_methods=["*"],
-#    allow_headers=["*"],
-# )
-
 
 @app.route("/sendEmail", methods=['GET', 'POST'])
 def sendMail():
@@ -73,6 +58,8 @@ def userData():
     email = request_data['email']
     name = request_data['name']
     dynamo = dynamodao()
+    print(type(name))
+    print(type(email))
     dynamo.addUserData(email, name)
     return {"message": True}
 
@@ -90,7 +77,12 @@ def userOnline():
 
 
 @app.route("/findAnotherUser", methods=['GET', 'POST'])
-def findUser(email):
+def findUser():
+    request_data = json.loads(request.data)
+    email = request_data['email']
+    dynamo = dynamodao()
+    partnerEmail = dynamo.findPartner(email)
+    return {"partnerEmail": partnerEmail}
     pass
 
     # 9. PYTHON: Set up sockets for python
